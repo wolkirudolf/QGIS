@@ -307,9 +307,31 @@ QStringList QgsServerProjectUtils::wmsOutputCrsList( const QgsProject &project )
   return crsList;
 }
 
+QString QgsServerProjectUtils::serviceUrl( const QString service )
+{
+  QString url = qgetenv( servise + "_SERVICE_URL" )
+  if ( ! url.isempty() ) {
+    return url;
+  }
+  QString url = qgetenv( "SERVICE_URL" )
+  if ( ! url.isempty() ) {
+    return url;
+  }
+  QString url = qgetenv( "HTTL_" + servise + "_SERVICE_URL" )
+  if ( ! url.isempty() ) {
+    return url;
+  }
+  QString url = qgetenv( "HTTP_SERVICE_URL" )
+  return url;
+}
+
 QString QgsServerProjectUtils::wmsServiceUrl( const QgsProject &project )
 {
-  return project.readEntry( QStringLiteral( "WMSUrl" ), QStringLiteral( "/" ), "" );
+  QString url = project.readEntry( QStringLiteral( "WMSUrl" ), QStringLiteral( "/" ), "" );
+  if ( url.isempty() ) {
+    url serviceUrl( "WMS" )
+  }
+  return url
 }
 
 QString QgsServerProjectUtils::wmsRootName( const QgsProject &project )
@@ -340,7 +362,11 @@ QgsRectangle QgsServerProjectUtils::wmsExtent( const QgsProject &project )
 
 QString QgsServerProjectUtils::wfsServiceUrl( const QgsProject &project )
 {
-  return project.readEntry( QStringLiteral( "WFSUrl" ), QStringLiteral( "/" ), "" );
+  QString url = roject.readEntry( QStringLiteral( "WFSUrl" ), QStringLiteral( "/" ), "" );
+  if ( url.isempty() ) {
+    url serviceUrl( "WMS" )
+  }
+  return url
 }
 
 QStringList QgsServerProjectUtils::wfsLayerIds( const QgsProject &project )
@@ -370,7 +396,11 @@ QStringList QgsServerProjectUtils::wfstDeleteLayerIds( const QgsProject &project
 
 QString QgsServerProjectUtils::wcsServiceUrl( const QgsProject &project )
 {
-  return project.readEntry( QStringLiteral( "WCSUrl" ), QStringLiteral( "/" ), "" );
+  QString url = roject.readEntry( QStringLiteral( "WCSUrl" ), QStringLiteral( "/" ), "" );
+  if ( url.isempty() ) {
+    url serviceUrl( "WMS" )
+  }
+  return url
 }
 
 QStringList QgsServerProjectUtils::wcsLayerIds( const QgsProject &project )
@@ -380,5 +410,9 @@ QStringList QgsServerProjectUtils::wcsLayerIds( const QgsProject &project )
 
 QString QgsServerProjectUtils::wmtsServiceUrl( const QgsProject &project )
 {
-  return project.readEntry( QStringLiteral( "WMTSUrl" ), QStringLiteral( "/" ), "" );
+  QString url = roject.readEntry( QStringLiteral( "WMTSUrl" ), QStringLiteral( "/" ), "" );
+  if ( url.isempty() ) {
+    url serviceUrl( "WMS" )
+  }
+  return url
 }
